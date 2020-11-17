@@ -11,3 +11,6 @@ Formulário de tarefas utilizando Local Storage para armazenar as informações 
 - [X] Modelar a página de Login
 - [X] Modelar a página de Registro
 - [X] Logo ETEC:https//rozanzenatti.com/etec/etec2.png
+- [X] Criar formulário da page Login
+- [X] Fazer validação do formulário da page Login
+- [X] Fazer validação do formulário da page Registro

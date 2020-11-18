@@ -27,7 +27,7 @@
 
     <ion-item lines="none">
       <ion-label position="stacked">CPF</ion-label>
-      <ion-input formControlName="cpf" type="text" placeholder="Digite seu CPF "></ion-input>
+      <ion-input [brmasker]="{person: true}" maxLength="14" formControlName="cpf" type="text" placeholder="Digite seu CPF "></ion-input>
     </ion-item>
     <ng-container *ngFor="let erro of mensagens_validacao.cpf">
         <span class="msg-erro" 
@@ -66,7 +66,7 @@
 
     <ion-item lines="none">
       <ion-label position="stacked">Celular</ion-label>
-      <ion-input formControlName="celular" type="cc-number" placeholder="Digite seu celular"></ion-input>
+      <ion-input [brmasker]="{phone: true}" formControlName="celular" type="cc-number" placeholder="Digite seu celular"></ion-input>
     </ion-item>
     <ng-container *ngFor="let erro of mensagens_validacao.celular">
       <span class="msg-erro" 

@@ -1,6 +1,7 @@
 <ion-content color="primary" [fullscreen]="true">
+
   <div class="ion-text-center">
-    <img src="../../assets/etec2.png" alt="Etec" />
+    <img src="../../assets/etec2.png" alt="Etec"/>
   </div>
 
   <ion-item class="ion-text-center ion-button-light">
@@ -17,8 +18,9 @@
       <ion-input formControlName="nome" type="text" placeholder="Digite seu nome"></ion-input>
     </ion-item>
     <ng-container *ngFor="let erro of mensagens_validacao.nome">
-      <span class="msg-erro" 
-        *ngIf="formRegistro.get('nome').hasError(erro.tipo) && (formRegistro.get('nome').dirty || formRegistro.get('nome').touched)">
+      <span 
+        *ngIf="formRegistro.get('nome').hasError(erro.tipo) && (formRegistro.get('nome').dirty || formRegistro.get('nome').touched)" 
+        class="msg-erro">
         {{erro.mensagem}}
       </span>
     </ng-container>

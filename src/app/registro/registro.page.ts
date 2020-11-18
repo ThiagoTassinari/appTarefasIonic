@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { CpfValidator } from './../validators/cpf-validator';
+import { ComparacaoValidator } from '../validators/comparacao-validator';
 
 @Component({
   selector: 'app-registro',
@@ -18,7 +20,8 @@ export class RegistroPage implements OnInit {
     cpf: [
       { tipo: 'required', mensagem: 'O campo CPF é obrigatório.' },
       { tipo: 'minlength', mensagem: 'O CPF deve ter pelo menos 11 caracteres.' },
-      { tipo: 'maxlength', mensagem: 'O CPF deve ter no máximo 14 caracteres.' }
+      { tipo: 'maxlength', mensagem: 'O CPF deve ter no máximo 14 caracteres.' },
+      { tipo: 'invalido', mensagem: 'CPF Inválido!' }
     ],
     dataNascimento: [
       { tipo: 'required', mensagem: 'O campo Data de Nascimento é obrigatório.' },
@@ -41,6 +44,7 @@ export class RegistroPage implements OnInit {
     confirmaSenha: [
       { tipo: 'required', mensagem: 'É obrigatório confirmar a senha.' },
       { tipo: 'minlength', mensagem: 'A senha deve ter pelo menos 6 caracteres' },
+      { tipo: 'comparacao', mensagem: 'Deve ser igual a senha!' }
     ]
   };
 
@@ -48,15 +52,22 @@ export class RegistroPage implements OnInit {
 
     this.formRegistro = formBuilder.group({
       nome: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-      cpf: ['', Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(14)])],
+      cpf: ['', Validators.compose([
+        Validators.required, 
+        Validators.minLength(11),
+        Validators.maxLength(14),
+        CpfValidator.cpfValido
+      ])],
       dataNascimento: ['', Validators.compose([Validators.required])],
       genero: ['', Validators.compose([Validators.required])],
       celular: ['', Validators.compose([Validators.minLength(10), Validators.maxLength(16)])],
       email: ['', Validators.compose([Validators.required, Validators.email])],
       senha: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
       confirmaSenha: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+    }, {
+      validator: ComparacaoValidator('senha', 'confirmaSenha')
     });
-     
+
    }
 
   ngOnInit() {

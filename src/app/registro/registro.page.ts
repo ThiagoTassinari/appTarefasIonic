@@ -27,7 +27,7 @@ export class RegistroPage implements OnInit {
       { tipo: 'required', mensagem: 'O campo Gênero é obrigatório. '},
     ],
     celular: [
-      { tipo: 'required', mensagem: 'O celular deve ter pelo menos 10 caracteres.' },
+      { tipo: 'minlength', mensagem: 'O celular deve ter pelo menos 10 caracteres.' },
       { tipo: 'maxlength', mensagem: 'O celular deve ter pelo menos 16 caracteres.' },
     ],
     email: [
@@ -44,13 +44,14 @@ export class RegistroPage implements OnInit {
     ]
   };
 
-  constructor(private FormBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder) {
 
-    this.formRegistro = FormBuilder.group({
+    this.formRegistro = formBuilder.group({
       nome: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
       cpf: ['', Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(14)])],
       dataNascimento: ['', Validators.compose([Validators.required])],
       genero: ['', Validators.compose([Validators.required])],
+      celular: ['', Validators.compose([Validators.minLength(10), Validators.maxLength(16)])],
       email: ['', Validators.compose([Validators.required, Validators.email])],
       senha: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
       confirmaSenha: ['', Validators.compose([Validators.required, Validators.minLength(6)])],

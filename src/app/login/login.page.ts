@@ -1,6 +1,8 @@
+import { UsuariosService } from './../services/usuarios.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
+import { AlertController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -22,23 +24,54 @@ export class LoginPage implements OnInit {
     ]
   };
 
-  constructor(private formBuilder: FormBuilder, private router: Router) { 
+  constructor(private formBuilder: FormBuilder,
+     private router: Router,
+     private usuarioService: UsuariosService,
+     public toastController: ToastController,
+     public alertController: AlertController
+     ) { 
     this.formLogin = formBuilder.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
-      senha: ['', Validators.compose([Validators.required, Validators.minLength(6)])]
+      senha: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+      manterLogado: [false]
     })
   }
 
   ngOnInit() {
   }
 
-  public login() {
+  public async login() {
     if(this.formLogin.valid) {
-      console.log('Formulário válido!');
-      this.router.navigateByUrl('/home');
-    } else {
-      console.log('Formulário inválido!');
+
+      const usuario = await this.usuarioService.login(this.formLogin.value.email, this.formLogin.value.senha);
       
+      if(usuario) {
+        this.router.navigateByUrl('/home');
+        this.presentToast();
+      } else {
+        this.persentAlert('ADVERTÊNCIA!', 'USUÁRIO OU SENHA INVÁLIDOS!');
+      }
+
+    } else {
+      this.persentAlert('ERRO!', 'Formulário inválido, confira os campos!');
     }
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Login efetuado com sucesso!',
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  async persentAlert(titulo: string, mensagem: string) {
+    const alert = await this.alertController.create({
+      header: titulo,
+      message: mensagem,
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 }

@@ -42,12 +42,14 @@ export class LoginPage implements OnInit {
 
   async ionViewWillEnter(){
     const usuarioLogado = await this.usuarioService.buscarUsuarioLogado();
-    if(usuarioLogado.manterLogado) {
+    if(usuarioLogado && usuarioLogado.manterLogado) {
       this.router.navigateByUrl('/home');
       this.presentToast();
+    } else {
+      this.usuarioService.removerUsuarioLogado(); // Não permitirá voltar na tela home após efetuar o Logout
     }
   }
-  
+
   public async login() {
     if(this.formLogin.valid) {
 

@@ -1,11 +1,27 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-buttons>
-      <ion-back-button></ion-back-button>
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
     </ion-buttons>
 
-    <ion-title>Tarefas</ion-title>
+    <ion-title>
+      Tarefas
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
+      </ion-button>
+
+      <ion-button (click)="exibirAlertLogout()">
+        <ion-icon slot="icon-only" name="exit-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true"> </ion-content>
+<ion-content [fullscreen]="true">
+  
+</ion-content>

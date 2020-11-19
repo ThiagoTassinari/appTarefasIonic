@@ -39,4 +39,18 @@ export class ArmazenamentoService {
       return null;
     }
   } // Fim do método pegarDados()
+
+  public removerDados(chave: string) {
+    if (chave.trim().length > 0) {
+      return this.storage.set(chave)
+      .then(()=> {
+        return true;
+      })
+      .catch(erro => {
+        return false;   
+      });
+    } else {
+      return false;
+    }
+  }
 }

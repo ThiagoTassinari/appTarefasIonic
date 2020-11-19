@@ -40,12 +40,22 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
+  async ionViewWillEnter(){
+    const usuarioLogado = await this.usuarioService.buscarUsuarioLogado();
+    if(usuarioLogado.manterLogado) {
+      this.router.navigateByUrl('/home');
+      this.presentToast();
+    }
+  }
+  
   public async login() {
     if(this.formLogin.valid) {
 
       const usuario = await this.usuarioService.login(this.formLogin.value.email, this.formLogin.value.senha);
       
       if(usuario) {
+        usuario.manterLogado = this.formLogin.value.manterLogado;
+        this.usuarioService.salvarUsuarioLogado(usuario);
         this.router.navigateByUrl('/home');
         this.presentToast();
       } else {

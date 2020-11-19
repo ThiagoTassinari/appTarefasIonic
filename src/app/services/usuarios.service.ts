@@ -1,3 +1,4 @@
+import { async } from '@angular/core/testing';
 import { Usuario } from './../models/Usuario';
 import { ArmazenamentoService } from './armazenamento.service';
 import { Injectable } from '@angular/core';
@@ -49,5 +50,14 @@ export class UsuariosService {
     }
 
     return usuario;
+  }
+
+  public salvarUsuarioLogado(usuario: Usuario) {
+    delete usuario.senha;
+    this.armazenamentoService.salvarDados('usuarioLogado', usuario);
+  }
+
+  public async buscarUsuarioLogado() {
+    return await this.armazenamentoService.pegarDados('usuarioLogado');
   }
 }
